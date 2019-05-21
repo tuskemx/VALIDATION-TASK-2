@@ -67,7 +67,9 @@ const validateUsername = () => {
     //https://intense-coast-72655.herokuapp.com/
 }
 
-fetch("https://intense-coast-72655.herokuapp.com/")
+
+
+fetch("https://intense-coast-72655.herokuapp.com/").get('/api/users/harry')
     .then(function (response) {
         return response.json();
     })
