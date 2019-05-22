@@ -7,7 +7,7 @@ const phoneInput = document.getElementById('phoneNumberInput')
 
 
 firstNameInput.addEventListener('change', (event) => {
-    let regexFirstName = /^[\w|-|'|\s]+$/
+    let regexFirstName = /^([A-Z]|[a-z]|[-]|[']|[\s])+$/
 
     if (regexFirstName.test(firstNameInput.value) === true) {
         firstNameInput.setAttribute('class', 'valid')
