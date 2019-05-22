@@ -77,6 +77,42 @@ userInput.addEventListener("change", event => {
 });
 
 
+//conditional to check all inputs set to valid 
+//and userInput fetch res.user == null
+//then does Post to api/users with all event.target.values
+//else error
+
+doorOpen.addEventListener("change", event => {
+    if (firstNameInput.classList.contains('valid')
+        && lastNameInput.classList.contains('valid')
+        && DoBInput.classList.contains('valid')
+        && emailInput.classList.contains('valid')
+        && phoneInput.classList.contains('valid')
+        && userInput.classList.contains('valid')) {
+        console.log("OK")
+    }
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // fetch(`https://intense-coast-72655.herokuapp.com/api/users/`)
 //     .then(function (response) {
