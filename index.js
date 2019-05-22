@@ -4,79 +4,113 @@ const DoBInput = document.getElementById("DOBInput");
 const emailInput = document.getElementById("emailInput");
 const phoneInput = document.getElementById("phoneNumberInput");
 const userInput = document.getElementById("userNameInput");
+const doorOpen = document.getElementById("doorbutton")
+const doorPic = document.getElementById("123")
 
-firstNameInput.addEventListener("change", event => {
-  let regexFirstName = /^([A-Z]|[a-z]|[-]|[']|[\s])+$/;
 
-  if (regexFirstName.test(firstNameInput.value) === true) {
-    firstNameInput.setAttribute("class", "valid");
-  } else {
-    firstNameInput.setAttribute("class", "invalid");
-  }
-});
+doorOpen.addEventListener("click", event => {
+    document.getElementById("123").style.display = "none";
+})
+doorPic.addEventListener("click", event => {
+    document.getElementById("123").style.display = "none";
+})
 
-lastNameInput.addEventListener("change", event => {
-  let regexlastName = /^([A-Z]|[a-z]|[-]|[']|[\s])+$/;
 
-  if (regexlastName.test(lastNameInput.value) === true) {
-    lastNameInput.setAttribute("class", "valid");
-  } else {
-    lastNameInput.setAttribute("class", "invalid");
-  }
-});
+
+changeValidity = (regexVal) => {
+    if (regexVal.test(event.target.value) === true) {
+        event.target.setAttribute("class", "valid");
+    } else {
+        event.target.setAttribute("class", "invalid");
+    }
+}
+firstLastValid = (event) => {
+    let regexFirstName = /^([A-Z]|[a-z]|[-]|[']|[\s])+$/;
+
+    if (regexFirstName.test(event.target.value) === true) {
+        event.target.setAttribute("class", "valid");
+    } else {
+        event.target.setAttribute("class", "invalid");
+    }
+}
+
+
+firstNameInput.addEventListener("change", firstLastValid);
+
+lastNameInput.addEventListener("change", firstLastValid);
 
 DoBInput.addEventListener("change", event => {
-  let regexDOB = /^(\d{4}19[0-9][0-9]|200[0-1])$/;
-
-  if (regexDOB.test(DoBInput.value) === true) {
-    DoBInput.setAttribute("class", "valid");
-  } else {
-    DoBInput.setAttribute("class", "invalid");
-  }
+    let regexDoB = /^(\d{4}19[0-9][0-9]|200[0-1])$/;
+    changeValidity(regexDoB);
 });
 
 emailInput.addEventListener("change", event => {
-  let regexemail = /^[\w-]+@([\w-]+\.)+[\w-]+$/;
+    let regexemail = /^[\w-]+@([\w-]+\.)+[\w-]+$/;
+    changeValidity(regexemail);
 
-  if (regexemail.test(emailInput.value) === true) {
-    emailInput.setAttribute("class", "valid");
-  } else {
-    emailInput.setAttribute("class", "invalid");
-  }
 });
 
 phoneInput.addEventListener("change", event => {
-  let regexphone = /^(07|01|02)[0-9]{9}$|^(\+447|\+441|\+442)[0-9]{9}$|^(00447|00441|00442)[0-9]{9}$/;
-
-  if (regexphone.test(phoneInput.value) === true) {
-    phoneInput.setAttribute("class", "valid");
-  } else {
-    phoneInput.setAttribute("class", "invalid");
-  }
+    let regexphone = /^(07|01|02)[0-9]{9}$|^(\+447|\+441|\+442)[0-9]{9}$|^(00447|00441|00442)[0-9]{9}$/;
+    changeValidity(regexphone);
 });
 
 userInput.addEventListener("change", event => {
-  let regexUser = /^(?=(?:\D*\d){2,}\D*$)(?:[^A-Z]*[A-Z]){3,}[^A-Z]*$/gi;
+    let regexUser = /^(?=(?:\D*\d){2,}\D*$)(?:[^A-Z]*[A-Z]){3,}[^A-Z]*$/gi;
 
-  if (regexUser.test(userInput.value) === true) {
-    userInput.setAttribute("class", "valid");
-  } else {
-    userInput.setAttribute("class", "invalid");
-  }
+    changeValidity(regexUser);
+
+    fetch(`https://intense-coast-72655.herokuapp.com/api/users/${userInput.value}`)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (res) {
+            console.log(JSON.stringify(res));
+            console.log(userInput.value);
+            if (res.user !== null) {
+                alert('Username Taken')
+
+            } else {
+                console.log('Not taken')
+            }
+        });
 });
+
+
+
+// fetch(`https://intense-coast-72655.herokuapp.com/api/users/`)
+//     .then(function (response) {
+//         return response.json();
+//     }).then(function (res) {
+//         console.log(JSON.stringify(res))
+//     })
+
+
+// // function storeUsername(event) {
+//     const username = event.target(username);
+// localStorage.setItem('username', username)
+// }
+//usernameInput.setAttribute("change", storeUsername")
 
 // if userInput class is invalid, then don't do post request
 // else post the form to the db (all values included)
+// const pvalid = passwordInput.clasList.contains('valid');
+// if make function that changes event.target.class validitiy
 
-fetch("https://intense-coast-72655.herokuapp.com/api/users/:username")
-  .then(function(response) {
-    return response.json();
-  })
-  .then(function(res) {
-    console.log(JSON.stringify(res));
-    if (JSON.stringify(res === { user: null })) {
-      //logic here
-    }
-  });
+// fetch(`https://intense-coast-72655.herokuapp.com/api/users/${userInput.value}`)
+//     .then(function (response) {
+//         return response.json();
+//     })
+//     .then(function (res) {
+
+//         const usersStr = JSON.stringify(res);
+//         console.log(usersStr);
+
+//         if (usersStr === { user: null }) {
+//             //logic here
+//             //foreach over and assign new user
+//         }
+//     });
 
 //event.target something
+// "userName": 
